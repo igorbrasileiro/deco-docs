@@ -1,10 +1,18 @@
+# 📘 Mini Guia – Como otimizar sites deco
+--- 
+
+## Identificar sections que tem tamanho de HTML maior do que 30kb
+
+- Identifique quais os componentes preact que foram renderizados pela página. Observe o data-manifest-key das HTML Tag section
+
+> NOTA: A section website/sections/Rendering/Lazy.tsx é um "wrapper", pegue o data-manifest-key da section filha imediata. Exemplo: <section data-manifest-key="website/sections/Rendering/Lazy.tsx"><section data-manifest-key="caminho/do/arquivo.tsx">...</section></section>
 
 ## 🔍 Visualizar o JSON de uma Página
 
 Cada página tem um arquivo de configuração JSON localizado em:
 
 ```
-/.deco/blocks/{nome-do-arquivo}.json
+/.deco/blocks/{id-da-pagina}.json
 ```
 
 Para descobrir o nome do arquivo da página atual, use no console do navegador:
@@ -15,10 +23,13 @@ window.LIVE.page.id
 
 Esse ID corresponde ao nome do JSON que está sendo usado na página.
 
-
 ## ⚡ Lazy Loading via Código (`deco` + `htmx`)
 
-Você pode carregar partes de um componente de forma assíncrona usando `useSection` e `htmx`.
+Você pode carregar partes de um componente de forma assíncrona (async render, lazy loading) usando `useSection` e `htmx`.
+
+### Quando utilizar?
+
+Utilize quando tiver partes da página que é exibido somente dado uma iteração do usuário na página, como click, hover, resultado de uma outra ação. Exemplo: Um modal, cujo acionador é de um botão. Outro exemplo: O menu lateral que abre quando o usuário clica.
 
 ### Passo a passo:
 
@@ -57,7 +68,11 @@ function Header({ renderHiddenPart }: Props) {
 
 ## 🧩 Lazy Loading de uma Section inteira via CMS
 
-Ideal para sections que estão **abaixo da dobra (below the fold)**. Utilize a section website/sections/Rendering/Lazy.tsx que é responsável por implementar o async rendering/lazy loading de uma section. A section Lazy.tsx adiciona um element html como placeholder com a tag HTMX hx-get que pedira ao servidor a section async renreder/lazy loaded.
+> NOTA: Se possuir acesso a ferramenta (tool) para navegar por páginas, NAVEGE e identifique quais sections estão abaixo da dobra (below the fold).
+
+Ideal para sections que estão **abaixo da dobra (below the fold)**.
+
+Utilize a section website/sections/Rendering/Lazy.tsx que é responsável por implementar o async rendering/lazy loading de uma section. A section Lazy.tsx adiciona um element html como placeholder com a tag HTMX hx-get que pedira ao servidor a section async renreder/lazy loaded.
 
 ### Antes (sem lazy):
 
@@ -87,7 +102,7 @@ Ideal para sections que estão **abaixo da dobra (below the fold)**. Utilize a s
 }
 ```
 
-> NOTE: É Possível criar exportar um component LoadingFallback na section, que será rendrizado enquanto carrega o componente de section (default function).
+> NOTA: É Possível criar exportar um component LoadingFallback na section, que será rendrizado enquanto carrega o componente de section (default function).
 
 ## Checking if Async Render Sections Are Being Cached
 
