@@ -15,7 +15,6 @@ window.LIVE.page.id
 
 Esse ID corresponde ao nome do JSON que está sendo usado na página.
 
----
 
 ## ⚡ Lazy Loading via Código (`deco` + `htmx`)
 
@@ -55,15 +54,15 @@ function Header({ renderHiddenPart }: Props) {
 }
 ```
 
----
 
 ## 🧩 Lazy Loading de uma Section inteira via CMS
 
-Ideal para sections que estão **abaixo da dobra (below the fold)**.
+Ideal para sections que estão **abaixo da dobra (below the fold)**. Utilize a section website/sections/Rendering/Lazy.tsx que é responsável por implementar o async rendering/lazy loading de uma section. A section Lazy.tsx adiciona um element html como placeholder com a tag HTMX hx-get que pedira ao servidor a section async renreder/lazy loaded.
 
 ### Antes (sem lazy):
 
 ```json
+// page json with CMS Content
 {
   "sections": [
     { "__resolveType": "...", // component props }
@@ -75,6 +74,7 @@ Ideal para sections que estão **abaixo da dobra (below the fold)**.
 
 ```json
 {
+// page json with CMS Content
   "sections": [
     {
       "__resolveType": "website/sections/Rendering/Lazy.tsx",
@@ -89,4 +89,8 @@ Ideal para sections que estão **abaixo da dobra (below the fold)**.
 
 > NOTE: É Possível criar exportar um component LoadingFallback na section, que será rendrizado enquanto carrega o componente de section (default function).
 
----
+## Checking if Async Render Sections Are Being Cached
+
+Each async rendered section via Rendering/Lazy.tsx section or `useSection`, does a request to `/deco/render` via HTMX hx-get.
+
+Cached request answers with `cache-control: max-age=60 (or any value differente from zero) ...other values`.
