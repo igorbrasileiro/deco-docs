@@ -66,7 +66,7 @@ Ideal para sections que estão **abaixo da dobra (below the fold)**.
 ```json
 {
   "sections": [
-    { "__resolveType": "..." }
+    { "__resolveType": "...", // component props }
   ]
 }
 ```
@@ -79,23 +79,14 @@ Ideal para sections que estão **abaixo da dobra (below the fold)**.
     {
       "__resolveType": "website/sections/Rendering/Lazy.tsx",
       "section": {
-        "__resolveType": "..."
+        "__resolveType": "...",
+        // component props
       }
     }
   ]
 }
 ```
 
----
-
-## 🧠 Identificar qual componente renderizou cada section
-
-Cada tag `<section>` no HTML gerado pelo Deco inclui um atributo `data-manifest-key`:
-
-```html
-<section data-manifest-key="caminho/do/componente.tsx">
-```
-
-Esse valor indica o **caminho do arquivo no sistema de arquivos** que originou aquela section.
+> NOTE: É Possível criar exportar um component LoadingFallback na section, que será rendrizado enquanto carrega o componente de section (default function).
 
 ---

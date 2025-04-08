@@ -21,3 +21,15 @@
 - The CMS content are written in JSON files inside ./deco/blocks/ folder. Also, each json should have the __resolveType property which is the path of the block will be executed with the props from the JSON by the deco framework. The name of the file is the id of block.
 - You can compose blocks, like: You have a section/ProductShelf.tsx which receives a products: property that comes from a loader which return this type. The CMS json that represents  this is: { __resolveType: “site/sections/ProductShelf.tsx”, products: { __resolveType: “site/loaders/MyProduct.ts”, /* loader properties */ }, /* … section prorperties*/ } . 
 - The interface of each block is compiled and converted into a formulary at deco CMS to be edited by the business user that changes the content of site.
+
+## 🧠 Identificar qual componente renderizou cada section
+
+Cada tag `<section>` no HTML gerado pelo Deco inclui um atributo `data-manifest-key`:
+
+```html
+<section data-manifest-key="caminho/do/componente.tsx">
+```
+
+Esse valor indica o **caminho do arquivo no sistema de arquivos** que originou aquela section.
+
+---
