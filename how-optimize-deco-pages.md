@@ -25,7 +25,7 @@ Esse ID corresponde ao nome do JSON que está sendo usado na página.
 
 ## ⚡ Lazy Loading via Código (`deco` + `htmx`)
 
-Você pode carregar partes de um componente de forma assíncrona (async render, lazy loading) usando `useSection` e `htmx`.
+Você pode carregar partes de um componente de forma assíncrona (async render, lazy loading) usando `useSection` (from package "@deco/deco/hooks") e `htmx`.
 
 ### Quando utilizar?
 
@@ -109,3 +109,9 @@ Utilize a section website/sections/Rendering/Lazy.tsx que é responsável por im
 Each async rendered section via Rendering/Lazy.tsx section or `useSection`, does a request to `/deco/render` via HTMX hx-get.
 
 Cached request answers with `cache-control: max-age=60 (or any value differente from zero) ...other values`.
+
+## Bloquear querystrings do async render
+
+- Liste as query strings que estão afetando o async render;
+- Adicione a lista em um array no arquivo /blockedQs.ts e exporte o array;
+- Importe as querystrings do arquivo /blockedQs.ts, no arquivo /apps/site.ts, e passe como argumento da função unstable_blockUseSectionHrefQueryStrings que é importada do pacote “@deco/deco/hooks”
