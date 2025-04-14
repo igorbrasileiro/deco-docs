@@ -126,3 +126,7 @@ O request header de cache-control: `cache-control: max-age=60 (or any value diff
 - Liste as query strings que estão afetando o async render;
 - Adicione a lista em um array no arquivo /blockedQs.ts e exporte o array;
 - Importe as querystrings do arquivo /blockedQs.ts, no arquivo /apps/site.ts, e passe como argumento da função unstable_blockUseSectionHrefQueryStrings que é importada do pacote “@deco/deco/hooks”
+
+## Otimizando o fresh state e ilhas do fresh
+
+siga esta documentação: https://github.com/deco-sites/docs/blob/main/docs/pt/07_Performance/06_islands.mdx
